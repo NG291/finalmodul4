@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Promotion List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4">Danh sách Khuyến mãi</h1>
+
+    <form th:action="@{/promotions}" method="get">
+        <input type="text" name="code" th:value="${keyword}" placeholder="Tìm kiếm mã">
+        <input type="number" name="discount" th:value="${discount}" placeholder="Mức giảm giá">
+        <label for="startDate">Ngày bắt đầu:</label>
+        <input type="date" id="startDate" name="startDate" th:value="${startDate}">
+        <label for="endDate">Ngày kết thúc:</label>
+        <input type="date" id="endDate" name="endDate" th:value="${endDate}">
+        <button type="submit">Tìm kiếm</button>
+    </form>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Mã</th>
+            <th>Bắt đầu</th>
+            <th>Kết thúc</th>
+            <th>Giảm giá</th>
+            <th>Chi tiết</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="promotion : ${promotions}">
+            <td th:text="${promotion.id}"></td>
+            <td th:text="${promotion.code}"></td>
+            <td th:text="${promotion.startTime}"></td>
+            <td th:text="${promotion.endTime}"></td>
+            <td th:text="${promotion.discount}"></td>
+            <td th:text="${promotion.detail}"></td>
+            <td>
+                <a th:href="@{/promotions/{id}/update(id=${promotion.id})}" class="btn btn-warning btn-sm">Sửa</a>
+                <a th:href="@{/promotions/{id}/delete(id=${promotion.id})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/promotions/create}" class="btn btn-success">Thêm mới khuyến mãi</a>
+</div>
+</body>
+</html>

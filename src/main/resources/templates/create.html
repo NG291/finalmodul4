@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tạo Khuyến mãi</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4">Tạo Khuyến mãi Mới</h1>
+
+    <form th:action="@{/promotions/save}" th:object="${promotion}" method="post">
+        <div class="form-group">
+            <label>Mã:</label>
+            <input type="text" th:field="*{code}" class="form-control" required />
+            <div th:if="${#fields.hasErrors('code')}" th:errors="*{code}" style="color:red;"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Thời gian bắt đầu:</label>
+            <input type="date" th:field="*{startTime}" class="form-control" required />
+            <div th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}" style="color:red;"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Thời gian kết thúc:</label>
+            <input type="date" th:field="*{endTime}" class="form-control" required />
+            <div th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}" style="color:red;"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Giảm giá:</label>
+            <input type="number" step="0.01" th:field="*{discount}" class="form-control" required />
+            <div th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}" style="color:red;"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Chi tiết:</label>
+            <textarea th:field="*{detail}" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <a th:href="@{/promotions}" class="btn btn-secondary">Quay lại danh sách</a>
+    </form>
+</div>
+</body>
+</html>
